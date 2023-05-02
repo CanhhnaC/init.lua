@@ -1,11 +1,7 @@
 local default_plugins = {
     "nvim-lua/plenary.nvim",
+    "nvim-lua/popup.nvim",
     "tpope/vim-surround",
-
-    {
-        "github/copilot.vim",
-        cmd = { "Copilot" }
-    },
 
     {
         "rose-pine/neovim",
@@ -80,7 +76,6 @@ local default_plugins = {
             { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'L3MON4D3/LuaSnip' },
         },
@@ -90,12 +85,86 @@ local default_plugins = {
     },
 
     {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            {
+                "zbirenbaum/copilot.lua",
+                config = function()
+                    require("copilot").setup({
+                        suggestion = { enabled = false },
+                        panel = { enabled = false },
+                    })
+                end,
+            },
+            {
+                "zbirenbaum/copilot-cmp",
+                config = function()
+                    require('copilot_cmp').setup()
+                end,
+            }
+        },
+        config = function()
+            local cmp = require("cmp")
+            cmp.setup({
+                sources = {
+                    { name = 'copilot' },
+                    { name = 'nvim_lsp' },
+                },
+                mapping = {
+                    ['<CR>'] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = false,
+                    })
+                }
+            })
+        end,
+    },
+
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function()
+            require("plugins.configs.null-ls")
+        end,
+
+    },
+
+    {
+        "lewis6991/gitsigns.nvim",
+        tag = "release",
+        opts = function()
+            return require("plugins.configs.others").gitsigns
+        end,
+        config = function(_, opts)
+            require("gitsigns").setup(opts)
+        end,
+    },
+
+    {
         "max397574/better-escape.nvim",
         event = "InsertEnter",
         config = function()
             require("better_escape").setup()
         end,
     },
+
+    {
+        "nvim-telescope/telescope.nvim",
+        opts = function()
+            return require "plugins.configs.telescope"
+        end,
+
+        config = function(_, opts)
+            local telescope = require "telescope"
+            telescope.setup(opts)
+
+            -- load extensions
+            for _, ext in ipairs(opts.extensions_list) do
+                telescope.load_extension(ext)
+            end
+        end,
+
+    },
+    { "sudormrfbin/cheatsheet.nvim" }
 
 }
 
