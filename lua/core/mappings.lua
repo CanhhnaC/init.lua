@@ -82,6 +82,12 @@ M.lspconfig = {
         vim.lsp.buf.format {}
       end,
     },
+
+    ["<leader>ca"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+    },
   },
 }
 
