@@ -49,8 +49,7 @@ local options = {
     },
   },
 
-  extensions_list = {}
+  extensions_list = {},
 }
 
 return options
-

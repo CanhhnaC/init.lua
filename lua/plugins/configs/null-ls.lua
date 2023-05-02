@@ -1,8 +1,8 @@
-local null_ls = require('null-ls')
+local null_ls = require "null-ls"
 
 local b = null_ls.builtins
 
-null_ls.setup({
+null_ls.setup {
   sources = {
     b.formatting.prettier,
     b.formatting.stylua,
@@ -11,5 +11,5 @@ null_ls.setup({
       extra_args = { "--profile", "black" },
     },
     b.formatting.rustfmt,
-  }
-})
+  },
+}

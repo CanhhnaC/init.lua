@@ -42,8 +42,6 @@ M.general = {
 }
 
 M.nvimtree = {
-  plugin = true,
-
   n = {
     -- toggle
     ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
@@ -59,7 +57,6 @@ M.hop = {
     ["<leader><leader>/"] = { "<cmd> HopPattern <CR>", "   Search n-character" },
   },
 }
-
 
 M.telescope = {
   n = {
@@ -83,10 +80,102 @@ M.lspconfig = {
     ["<leader>fm"] = {
       function()
         vim.lsp.buf.format {}
-      end
-    }
+      end,
+    },
+  },
+}
 
-  }
+M.nvterm = {
+  t = {
+    -- toggle in terminal mode
+    ["<A-i>"] = {
+      function()
+        require("nvterm.terminal").toggle "float"
+      end,
+      "toggle floating term",
+    },
+
+    ["<A-h>"] = {
+      function()
+        require("nvterm.terminal").toggle "horizontal"
+      end,
+      "toggle horizontal term",
+    },
+
+    ["<A-v>"] = {
+      function()
+        require("nvterm.terminal").toggle "vertical"
+      end,
+      "toggle vertical term",
+    },
+  },
+
+  n = {
+    -- toggle in normal mode
+    ["<A-i>"] = {
+      function()
+        require("nvterm.terminal").toggle "float"
+      end,
+      "toggle floating term",
+    },
+
+    ["<A-h>"] = {
+      function()
+        require("nvterm.terminal").toggle "horizontal"
+      end,
+      "toggle horizontal term",
+    },
+
+    ["<A-v>"] = {
+      function()
+        require("nvterm.terminal").toggle "vertical"
+      end,
+      "toggle vertical term",
+    },
+
+    -- new
+    ["<leader>h"] = {
+      function()
+        require("nvterm.terminal").new "horizontal"
+      end,
+      "new horizontal term",
+    },
+
+    ["<leader>v"] = {
+      function()
+        require("nvterm.terminal").new "vertical"
+      end,
+      "new vertical term",
+    },
+  },
+}
+
+M.comment = {
+  -- toggle comment in both modes
+  n = {
+    ["<C-_>"] = {
+      function()
+        require("Comment.api").toggle.linewise.current()
+      end,
+      "toggle comment",
+    },
+  },
+
+  v = {
+    ["<C-_>"] = {
+      "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+      "toggle comment",
+    },
+  },
+}
+
+M.trouble = {
+  n = {
+    ["<leader>xx"] = {
+      "<cmd>TroubleToggle<cr>",
+      { silent = true, noremap = true },
+    },
+  },
 }
 
 return M

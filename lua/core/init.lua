@@ -13,7 +13,7 @@ opt.tabstop = 2
 opt.softtabstop = 2
 
 opt.fillchars = {
-    eob = " "
+  eob = " ",
 }
 opt.ignorecase = true
 opt.smartcase = true
@@ -37,5 +37,5 @@ g.mapleader = " "
 -- disable some default providers
 
 for _, provider in ipairs { "perl", "ruby" } do
-    vim.g["loaded_" .. provider .. "_provider"] = 0
+  vim.g["loaded_" .. provider .. "_provider"] = 0
 end
